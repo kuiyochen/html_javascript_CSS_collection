@@ -1,0 +1,80 @@
+javascript:(function() {
+    var url=document.URL;
+
+    if (url.substring(0, 22) == "http://localhost:8888/"){
+        url=document.URL;
+        if(url.substring(url.length - 3, url.length)=="url"){
+            var ele=document.getElementsByClassName(" CodeMirror-line ")[1].getElementsByTagName("span")[0];
+            var str=ele.innerHTML.substring(4);
+            window.location.href = str;
+        }
+    }
+    if (url.substring(0, 20) == "http://iquizuuu.com/"){
+        function R(a){var ona = "on"+a;
+                      if(window.addEventListener) window.addEventListener(a, function (e) { for(var n=e.originalTarget; n; n=n.parentNode) n[ona]=null; }, true);
+                      window[ona]=null;
+                      document[ona]=null;
+                      if(document.body) document.body[ona]=null;}
+        R("contextmenu");
+        R("click");
+        R("mousedown");
+        R("mouseup");
+        R("selectstart");
+        document.getElementsByClassName("admask")[0].outerHTML="";
+        document.getElementsByClassName("admaskContent")[0].outerHTML="";
+        document.getElementsByClassName("kiwiad-popup-overlay-background")[0].outerHTML="";
+        document.getElementsByClassName("kiwiad-popup-ad-container")[0].outerHTML="";
+        document.getElementsByClassName("kiwi-ad-sticky-wrapper")[0].remove();
+
+        document.getElementsByClassName("admask")[0].remove();
+        document.getElementsByClassName("admaskContent")[0].remove();
+        document.getElementsByClassName("kiwiad-popup-overlay-background")[0].remove();
+        document.getElementsByClassName("kiwiad-popup-ad-container")[0].remove();
+    }
+    if (url.substring(0, 19) == "http://nsctdxw.com/"){
+        function R(a){var ona = "on"+a;
+                      if(window.addEventListener) window.addEventListener(a, function (e) { for(var n=e.originalTarget; n; n=n.parentNode) n[ona]=null; }, true);
+                      window[ona]=null;
+                      document[ona]=null;
+                      if(document.body) document.body[ona]=null;}
+        R("contextmenu");
+        R("click");
+        R("mousedown");
+        R("mouseup");
+        R("selectstart");
+        document.getElementsByClassName("popwin")[0].outerHTML="";
+        document.getElementsByClassName("kiwiad-desktop-popup-overlay")[0].outerHTML="";
+        document.getElementsByClassName("kiwi-ad-sticky-wrapper")[0].remove();
+
+        document.getElementsByClassName("popwin")[0].remove();
+        document.getElementsByClassName("kiwiad-desktop-popup-overlay")[0].remove();
+    }
+    if (url.substring(0, 37) == "https://my.ntu.edu.tw/attend/ssi.aspx"){
+        var ini = new Date(document.getElementById('signs').innerHTML);
+        var now = Date.now();
+
+        var now_hr = Date(Date.now()).toString().split(" ")[4].split(":")[0];
+        if(now_hr >= 17){
+            if(now-ini<=32400000){
+                for(var i=0;i<3;i++){
+                    alert('Not Yet!!!!!!!');
+                }
+            }else{
+                alert('OK!');
+            }
+        }else{
+            alert('Not Yet!!!!!!!');
+        }
+    }
+
+    function R(a){var ona = "on"+a;
+                    if(window.addEventListener){window.addEventListener(a, function (e) { for(var n=e.originalTarget; n; n=n.parentNode) n[ona]=null; }, true);}
+                    window[ona]=null;
+                    document[ona]=null;
+                    if(document.body) document.body[ona]=null;}
+    R("contextmenu");
+    R("click");
+    R("mousedown");
+    R("mouseup");
+    R("selectstart");
+})()

@@ -1,0 +1,235 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Settle_Accounts</title>
+<style type="text/css">
+body{
+    background: -webkit-linear-gradient(217deg, rgba(255,0,255,.8), rgba(255,0,255,0) 70.71%),
+            -webkit-linear-gradient(127deg, rgba(0,255,255,.8), rgba(0,255,255,0) 70.71%),
+            -webkit-linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+    transition-timing-function: cubic-bezier(0.74, 0.25, 0.26, 0.72);
+    transition-duration: 0.5s;
+    opacity: 0;
+}
+body:hover{
+    background: -webkit-linear-gradient(336deg, rgba(100,0,180,.8), rgba(100,0,180,0) 70.71%),
+            -webkit-linear-gradient(217deg, rgba(0,100,180,.8), rgba(0,100,180,0) 70.71%),
+            -webkit-linear-gradient(127deg, rgba(0,0,180,.8), rgba(0,0,180,0) 70.71%);
+    opacity: 1;
+}
+.button{
+    background-color: #0011F8;                          /* For browsers that do not support gradients */
+    background-image: -moz-linear-gradient(top,#0066A9,#0011F8);  /* Firefox 3.6-15*/
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#0066A9),to(#0011F8));
+    background-image: -webkit-linear-gradient(top,#0066A9,#0011F8);   /* For Chrome 25 and Safari 6, iOS 6.1, Android 4.3 */
+    background-image: -o-linear-gradient(top,#0066A9,#0011F8);        /* Opera 11.1-12 */
+    background-image: linear-gradient(to bottom,#0066A9,#0011F8); /* Standard, must be last */
+    -webkit-transition-duration: 0.5s; /* Safari */
+    transition-duration: 0.5s;
+    color: white;
+    width:100px;
+    height:25px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+    display: inline-block;
+    box-shadow: 2px 2px 2px #000000;
+    border: 2px solid #004499;
+    border-radius: 4px;
+    font-size: 20px;
+    font-family: DFKai-sb;
+}
+.button:hover{
+    border:1px solid #002233;
+    background-color: #0087EE;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#0087EE), to(#001AD4));
+    background-image: -webkit-linear-gradient(top, #0087EE, #001AD4);
+    background-image: -moz-linear-gradient(top, #0087EE, #001AD4);
+    background-image: -ms-linear-gradient(top, #0087EE, #001AD4);
+    background-image: -o-linear-gradient(top, #0087EE, #001AD4);
+    background-image: linear-gradient(to bottom, #0087EE, #001AD4);
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#0087EE, endColorstr=#001AD4);
+    box-shadow: 2px 2px 2px #444444;
+    border: 2px solid #000044;
+    border-radius: 15px;
+    color: #FFFFFF;
+    font-size: 23px;
+    font-family: DFKai-sb;
+}
+#textfield{
+    font-size: 20px;
+    font-family: DFKai-sb;
+    background-color: #EEEEFF;
+    width:400px;
+    height:350px;
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-duration: 0.2s;
+    border: 5px solid #0055cc;
+    border-radius: 15px;
+    border-width: 7px 5px 7px 5px;
+}
+#textfield:hover{
+    width:550px;
+    height:350px;
+    border: 7px solid #4477FF;
+    border-radius: 20px;
+}
+#Settle_Accounts_out {
+    float: left;
+    position: relative;
+    left: 50%;
+}
+
+#Settle_Accounts {
+    color: #3333AA;
+    font-size: 20px;
+    font-family: DFKai-sb;
+    float: left;
+    position: relative;
+    left: -50%;
+}
+#Settle_Accounts:hover{
+    color: #CCCCFF;
+}
+</style> 
+<script type="text/javascript">
+String.prototype.splice = function(idx, rem, str) {
+    return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
+};
+//var result = "foo baz".splice(4, 0, "bar "); //result == "foo bar baz"
+
+function Submitbutton(){
+    var input, days, temp_sequence, username = [], user_accounts = [], accounts = [], user_settle_accounts = [];
+    document.getElementById('Settle_Accounts').innerHTML = "";
+    input = document.getElementById('textfield').value;
+    if(input == ""){return;};
+    input = input.replace(/元/g, '');
+    input = input.replace(/\n\n+/g, '\n');
+    while(input.substring(input.length-1)=="\n"){input = input.substring(0,input.length-1);};//delete "\n" at the last of input
+    temp_sequence = input.split("\n");
+    for (var i = 0; i < temp_sequence.length; i++) {
+        temp_sequence[i] = separate_the_name_and_numbers(temp_sequence[i]);
+    };
+    for (var i = 0; i <temp_sequence.length; i++) {
+        if(username[0] !== undefined){if(temp_sequence[i][0] == username[0]){break;};};
+        username.push(temp_sequence[i][0]);
+    };
+    for (var i = 0; i <temp_sequence.length; i++) {//checking whether user data match or not
+        var j = i%username.length;
+        if(temp_sequence[i][0] != username[j]){alert("Something wrong! "+i+","+j);return;};
+    };
+    for (var i = 0; i <temp_sequence.length; i++) {
+        var j = i%username.length;
+        user_accounts[j] = (i>=username.length? user_accounts[j] + "+": "") + temp_sequence[i][1];
+    };
+    for (var i = 0; i <user_accounts.length; i++) {
+        accounts[i] = user_accounts[i].split("+");
+    };
+    days = accounts[0].length;
+    for (var i = 0; i <accounts.length; i++) {//checking whether all users has same days of data or not
+        if(accounts[i].length != accounts[0].length){alert("Something wrong!");return;};
+    };
+
+    for (var i = 0; i <accounts.length; i++) {
+        for (var j = 0; j < days; j++) {
+            if(accounts[i][j] == "000"){
+                var sum=0;
+                for(var k = 0; k < accounts.length; k++){sum+=Number(accounts[k][j]);};
+                accounts[i][j] = sum*-1;
+            };
+        };
+    };
+    for (var i = 0; i <accounts.length; i++) {
+        user_settle_accounts[i] = 0;
+        for (var j = 0; j < days; j++) {
+            user_settle_accounts[i] += Number(accounts[i][j]);
+        };
+    };
+
+    //var length = user_settle_accounts.length;//remove 0 settle account users
+    //for (var i = 0; i < length; i++) {
+    //    if (Number(user_settle_accounts[i]) == 0) {
+    //        username[i].splice(i,1);
+    //        user_settle_accounts[i].splice(i,1);
+    //        length--;
+    //    };
+    //};
+    for (var i = 0; i <user_settle_accounts.length; i++) {
+        while(Number(user_settle_accounts[i]) < 0){
+            for (var j = 0; j < user_settle_accounts.length; j++) {
+                if(Number(user_settle_accounts[j]) > 0){
+                    if(Number(user_settle_accounts[j]) + Number(user_settle_accounts[i]) >= 0){
+                        document.getElementById('Settle_Accounts').innerHTML += username[j] + "&#9;欠&#9;" + username[i] + "&#9;" + (Number(user_settle_accounts[i])*-1) + "&#9;元<br>";
+                        user_settle_accounts[j] = Number(user_settle_accounts[j]) + Number(user_settle_accounts[i]);
+                        user_settle_accounts[i] = Number(0);
+                    }else{
+                        document.getElementById('Settle_Accounts').innerHTML += username[j] + "&#9;欠&#9;" + username[i] + "&#9;" + (Number(user_settle_accounts[j])) + "&#9;元<br>";
+                        user_settle_accounts[i] = Number(user_settle_accounts[j]) + Number(user_settle_accounts[i]);
+                        user_settle_accounts[j] = Number(0);
+                    };
+                };
+            };
+        };
+    };
+    //document.getElementById('Settle_Accounts').innerHTML += temp_sequence;
+    //document.getElementById('Settle_Accounts').innerHTML += "<br><br>";
+    //document.getElementById('Settle_Accounts').innerHTML += username;
+    //document.getElementById('Settle_Accounts').innerHTML += "<br><br>";
+    //document.getElementById('Settle_Accounts').innerHTML += user_accounts;
+    //document.getElementById('Settle_Accounts').innerHTML += "<br><br>";
+    //document.getElementById('Settle_Accounts').innerHTML += accounts;
+    //document.getElementById('Settle_Accounts').innerHTML += "<br><br>";
+    //document.getElementById('Settle_Accounts').innerHTML += user_settle_accounts;
+}
+
+function separate_the_name_and_numbers(str){
+    if(str === undefined){alert("YOOO");return;}
+    for(var i = str.length; i > 0; i--){
+        var str1 = str.substring(i-1,i);
+        if(isNaN(str1) && str1 != "+"){
+            break;
+        }
+    }
+    str = str.splice(i, 0, " ");
+    str = str.replace(/\s\s+/g, ' ');
+    str = str.split(" ");
+    return str;
+}
+
+
+document.onkeydown = whichkey;
+function whichkey(event){
+    key = event.keyCode;
+    switch(key) {
+        case 13:
+            if (document.getElementById('textfield').value == "") {
+                break;
+            }
+            Submitbutton();
+            break;
+        default:
+    }
+}
+
+function preloading(){
+    document.getElementById('textfield').focus();
+}
+</script>
+</head>
+<body onload="preloading()">
+<div class="body">
+    <table>
+        <center>
+            <textarea id="textfield" placeholder="將記錄貼上至此"></textarea>
+            <br><br>
+            <a href="#" class="button" id="Submit" onclick="Submitbutton()">結&emsp;算</a>
+        </center>
+        <br>
+        <br>
+        <div id="Settle_Accounts_out">
+           <pre id="Settle_Accounts">
+           </pre>
+        </div>
+    </table>
+</div>
+</body>
+</html>
